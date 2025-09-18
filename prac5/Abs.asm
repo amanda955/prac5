@@ -3,20 +3,26 @@
 
 
 // Put your code here.
-    @R1
-    D=M
-    @POSITIVE
-    D;JGE
-    
-    //IF R1 < 0 - NEGATE
-    @R1
-    D=M
-    D=-D
-    
-    (POSITIVE)
-    @R0
-    M=D
-    
-    (END)
-    0;JMP
+@R1
+D=M
+@POSITIVE
+D;JGE
+
+//IF R1 < 0 
+@R1
+D=M
+D=-D
+@R0
+M=D
+(END)
+0;JMP
+
+@R
+D=M
+@R0
+M=D
+@END
+0;JMP //INFINITE LOOP
+
+
 
