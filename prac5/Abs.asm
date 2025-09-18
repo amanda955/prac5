@@ -17,12 +17,13 @@ M=D
 (END)
 0;JMP
 
-@R
+@R1
 D=M
 @R0
 M=D
 @END
 0;JMP //INFINITE LOOP
+
 
 
 
