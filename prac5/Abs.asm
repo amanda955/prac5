@@ -3,19 +3,20 @@
 
 
 // Put your code here.
-@R1
-D=M
-@POSITIVE
-D;JGE
+    @R1
+    D=M
+    @POSITIVE
+    D;JGE
+    
+    //IF R1 < 0 - NEGATE
+    @R1
+    D=M
+    D=-D
+    
+    (POSITIVE)
+    @R0
+    M=D
+    
+    (END)
+    0;JMP
 
-//IF R1 < 0 - NEGATE
-@R1
-D=M
-D=-D
-
-(POSITIVE)
-@R0
-M=D
-
-(END)
-0;JMP
