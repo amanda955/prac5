@@ -4,7 +4,7 @@
 
 // Put your code here.
 //loading the base address - pointer
-@R
+@R1
 D=M
 @ptr
 M=D   //ptr = base
@@ -54,13 +54,17 @@ M=M+1
 (SKIP)
     @ptr
     M=M+1
-    
+
+    @count
+    M=M-1
+
     @LOOP
     0;JMP
     
     (END)
     @END
     0;JMP
+
 
 
 
