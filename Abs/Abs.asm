@@ -3,26 +3,27 @@
 
 
 // Put your code here.
-@R1
-D=M
-@POSITIVE
-D;JGE
+    @R1
+    D=M
+    @POSITIVE
+    D;JGE
 
 //IF R1 < 0 
-@R1
-D=M
-D=-D
-@R0
-M=D
-(END)
-0;JMP
+    @R1
+    D=M
+    D=-D
+    @R0
+    M=D
+    @END
+    0;JMP
+    
+    @R1
+    D=M
+    @R0
+    M=D
 
-@R1
-D=M
-@R0
-M=D
-@END
-0;JMP //INFINITE LOOP
+(END)
+    0;JMP //INFINITE LOOP
 
 
 
