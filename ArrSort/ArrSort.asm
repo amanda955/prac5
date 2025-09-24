@@ -5,17 +5,23 @@
 @R1
 D=M
 @BASE
-M=D        //BASE = R1
+M=D         
 
 @R2
 D=M
 @LEN
-M=D        //LEN = R2
+M=D        
 
 @0
 D=A
 @I
-M=D        //I = 0   
+M=D        
+
+//skip sorting if LEN <= 1
+@LEN
+D=M
+@FINISH
+D;JLE
 
 //outer loop
 (OUTER)
@@ -24,12 +30,13 @@ M=D        //I = 0
     @LEN
     D=D-M
     @FINISH
-    D;JGE   //if I >= LEN - stop
+    D;JGE     //stop sorting if I >= LEN
 
+    //Starting inner loop at j = 0
     @0
     D=A
     @J
-    M=D     //J = 0
+    M=D
 
 //inner loop
 (INNER)
@@ -38,9 +45,8 @@ M=D        //I = 0
     @LEN
     D=D-M
     @NEXT_OUTER
-    D;JGE    //exit the inner loop if J >= LEN
+    D;JGE     //stop inner loop if j >= LEN
 
-    //check if J >= LEN - I - 1
     @J
     D=M
     @LEN
@@ -48,67 +54,72 @@ M=D        //I = 0
     @I
     D=D-M
     @NEXT_OUTER
-    D;JLE   //go outer if J >= LEN - I - 1
+    D;JLE
 
+    //Loading arr[j]
     @J
     D=M
     @BASE
     D=D+M
     @ADDRJ
-    M=D
+    M=D       
 
     @ADDRJ
     A=M
     D=M
     @VALJ
-    M=D      //VALJ = arr[j]
+    M=D       //VALJ = arr[j]
 
+
+    //Loading arr[j+1]
     @ADDRJ
     D=M
     D=D+1
     @ADDRNEXT
-    M=D
+    M=D       
 
     @ADDRNEXT
     A=M
     D=M
     @VALNEXT
-    M=D      //VALNEXT = arr[j+1]
+    M=D         //VALNEXT = arr[j+1]
 
+
+    //Comparing arr[j] and arr[j+1]
     @VALJ
     D=M
     @VALNEXT
     D=D-M
     @NOSWAP
-    D;JLE    //dont swap if arr[j] <= arr[j+1]
+    D;JLE       //skip swap if arr[j] <= arr[j+1]
 
     @VALJ
     D=M
     @ADDRNEXT
     A=M
-    M=D
+    M=D       //arr[j+1] = VALJ
 
     @VALNEXT
     D=M
     @ADDRJ
     A=M
-    M=D
+    M=D        //arr[j] = VALNEXT
+
 
 (NOSWAP)
-    // j++
+//Move j forward (j++)
     @J
     M=M+1
     @INNER
     0;JMP
 
-(NEXT_OUTER)
+//incrementing the outer loop 
     @I
     M=M+1
     @OUTER
     0;JMP
 
-(FINISH)
     @R0
-    M=-1      //True (-1)
+    M=-1        //True
     @FINISH
-    0;JMP
+    0;JMP       
