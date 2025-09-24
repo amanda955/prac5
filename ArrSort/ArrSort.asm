@@ -2,94 +2,113 @@
 // (R0, R1, R2 refer to RAM[0], RAM[1], and RAM[2], respectively.)
 
 // Put your code here.
-    @R1
+@R1
+D=M
+@BASE
+M=D        //BASE = R1
+
+@R2
+D=M
+@LEN
+M=D        //LEN = R2
+
+@0
+D=A
+@I
+M=D        //I = 0   
+
+//outer loop
+(OUTER)
+    @I
     D=M
-    @base
-    M=D
-    
-    @R2
-    D=M
-    @len
-    M=D
-  
+    @LEN
+    D=D-M
+    @FINISH
+    D;JGE   //if I >= LEN - stop
+
     @0
     D=A
-    @i
+    @J
+    M=D     //J = 0
+
+//inner loop
+(INNER)
+    @J
+    D=M
+    @LEN
+    D=D-M
+    @NEXT_OUTER
+    D;JGE    //exit the inner loop if J >= LEN
+
+    //check if J >= LEN - I - 1
+    @J
+    D=M
+    @LEN
+    D=M-D
+    @I
+    D=D-M
+    @NEXT_OUTER
+    D;JLE   //go outer if J >= LEN - I - 1
+
+    @J
+    D=M
+    @BASE
+    D=D+M
+    @ADDRJ
     M=D
 
-(OUTER_LOOP)
-    @i
+    @ADDRJ
+    A=M
     D=M
-    @len
-    D=D-M
-    @DONE
-    S;JGE
+    @VALJ
+    M=D      //VALJ = arr[j]
 
-  //inner loop where j = 0
-    @0
-    D=A
-    @j
-    M=D
-
-(INNER_LOOP)
-    @j
-    D=M
-    @len
-    D=D-M
-    @INC_OUTER
-    D;JGE
-
-  //loading arr[j] into D
-    @j
+    @ADDRJ
     D=M
     D=D+1
-    @base
-    A=M+D
-    D=M
-    @valnext
-    M=D         //valnext = arr[j+1]
+    @ADDRNEXT
+    M=D
 
-    //Compare valj and valnext
-    @valj
-    D=M
-    @valnext
-    D=D-M
-    @NO_SWAP
-    D;JLE        //there is no swap happen if valj <= valnext 
-
-    //Swap arr[j] and arr[j+1]
-    @valj
-    D=M
-    @j
+    @ADDRNEXT
     A=M
-    @base
-    A=M+D
-    M=D         //arr[j+1] = valj
-
-    @valnext
     D=M
-    @j
-    D=M
-    @base
-    A=M+D
-    M=D          //arr[j] = valnext
+    @VALNEXT
+    M=D      //VALNEXT = arr[j+1]
 
-(NO_SWAP)
+    @VALJ
+    D=M
+    @VALNEXT
+    D=D-M
+    @NOSWAP
+    D;JLE    //dont swap if arr[j] <= arr[j+1]
+
+    @VALJ
+    D=M
+    @ADDRNEXT
+    A=M
+    M=D
+
+    @VALNEXT
+    D=M
+    @ADDRJ
+    A=M
+    M=D
+
+(NOSWAP)
     // j++
-    @j
+    @J
     M=M+1
-    @INNER_LOOP
+    @INNER
     0;JMP
 
-(INC_OUTER)
-    @i
+(NEXT_OUTER)
+    @I
     M=M+1
-    @OUTER_LOOP
+    @OUTER
     0;JMP
 
-(DONE)
+(FINISH)
     @R0
-    M=-1         //True (-1)
-(END)
+    M=-1      //True (-1)
+    @FINISH
     0;JMP
-
