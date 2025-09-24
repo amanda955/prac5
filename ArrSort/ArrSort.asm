@@ -114,11 +114,13 @@ D;JLE
     0;JMP
 
 //incrementing the outer loop 
+(NEXT_OUTER)
     @I
     M=M+1
     @OUTER
     0;JMP
 
+(FINISH)
     @R0
     M=-1        //True
     @FINISH
