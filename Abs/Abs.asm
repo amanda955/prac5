@@ -4,26 +4,31 @@
 
 // Put your code here.
     @R1
-    D=M
-    @POSITIVE
-    D;JGE
+    D=M        //D = R1
 
-//IF R1 < 0 
+    @POSITIVE
+    D;JGE   
+
+    //take two's complement is the number is negative
     @R1
-    D=M
-    D=-D
+    D=M        //D = R1
+    D=-D       //D = -R1
     @R0
-    M=D
+    M=D        //R0 = abs(R1)
     @END
     0;JMP
-    
+
+(POSITIVE)
     @R1
-    D=M
+    D=M        //D = R1
     @R0
-    M=D
+    M=D        //R0 = R1
+    @END
+    0;JMP
 
 (END)
-    0;JMP //INFINITE LOOP
+    @END
+    0;JMP
 
 
 
