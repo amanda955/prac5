@@ -3,39 +3,42 @@
 
 
 // Put your code here.
-//loading the base address - pointer
+//loading the base address 
 @R1
 D=M
-@ptr
-M=D   //ptr = base
+@PTR
+M=D  
 
 //loading the length into the counter
 @R2
 D=M
-@count
+@COUNT
 M=D     //count=length
 
+@COUNT
+D=M
+@NO_ELEMENTS
+D;JLE
+
 //loading the firsth element as R0
-@ptr
+@PTR
 A=M
 D=M
 @R0
 M=D
 
-@count
+@COUNT
 M=M-1
-
-//pointer to the next element
-@ptr
+@PTR
 M=M+1
 
 (LOOP)
-    @count
+    @COUNT
     D=M
     @END
     D;JEQ
     
-    @ptr
+    @PTR
     A=M
     D=M
     
@@ -45,23 +48,29 @@ M=M+1
     @SKIP
     D;JGE    //skip the update if the current >= min
     
-    @ptr
+    @PTR
     A=M
     D=M
     @R0
     M=D
 
 (SKIP)
-    @ptr
+    @PTR
     M=M+1
 
-    @count
+    @COUNT
     M=M-1
 
     @LOOP
     0;JMP
     
-    (END)
+(END)
+    @END
+    0;JMP
+
+(NO_ELEMENTS)
+    @R0
+    M=0
     @END
     0;JMP
 
