@@ -7,9 +7,9 @@ set PC 0,
 set RAM[0]  0,  // Set R0
 set RAM[1]  30, // Set R1
 set RAM[2]  3,  // Set R2
-set RAM[20] 9,  // Set Arr[0]
-set RAM[21] 7,  // Set Arr[1]
-set RAM[22] 8,  // Set Arr[2]
+set RAM[30] 9,  // Set Arr[0]
+set RAM[31] 7,  // Set Arr[1]
+set RAM[32] 8,  // Set Arr[2]
 repeat 800 {
   ticktock;    // Run for 600 clock cycles
 }
