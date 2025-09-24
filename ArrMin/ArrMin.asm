@@ -35,7 +35,7 @@ M=M+1
 (LOOP)
     @COUNT
     D=M
-    @END
+    @FINISH
     D;JEQ
     
     @PTR
@@ -64,14 +64,19 @@ M=M+1
     @LOOP
     0;JMP
     
-(END)
-    @END
+(FINISH)
+    @RO
+    M=M
+    @HALT
     0;JMP
 
 (NO_ELEMENTS)
     @R0
     M=0
-    @END
+    @HALT
+    0;JMP
+(HALT)
+    @HALT
     0;JMP
 
 
