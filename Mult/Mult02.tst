@@ -10,6 +10,4 @@ set RAM[2] 40;  // Set R2
 repeat 2000 {
   ticktock;    // Run for 200 clock cycles
 }
-set RAM[1] -25,  // Restore arguments in case program used them
-set RAM[2] 40,
 output;        // Output to file
