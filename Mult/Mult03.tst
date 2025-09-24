@@ -7,7 +7,7 @@ set PC 0,
 set RAM[0] 0,  // Set R0
 set RAM[1] 200,  // Set R1
 set RAM[2] 150;  // Set R2
-repeat 2000 {
+repeat 20000 {
   ticktock;    // Run for 200 clock cycles
 }
 set RAM[1] 200,  // Restore arguments in case program used them
